@@ -52,6 +52,22 @@ public class CaixaController : Controller
         if (!ModelState.IsValid)
             return View(cadastrarVm);
 
+        List<Caixa> registros = repositorioCaixa.SelecionarTodos();
+
+        bool etiquetaDuplicada = registros.Any(c =>
+            c.Etiqueta.Equals(cadastrarVm.Etiqueta, StringComparison.OrdinalIgnoreCase)
+        );
+
+        if (etiquetaDuplicada)
+        {
+            ModelState.AddModelError(
+                nameof(cadastrarVm.Etiqueta),
+                "Já existe uma caixa com esta etiqueta."
+            );
+
+            return View(cadastrarVm);
+        }
+
         Caixa novaCaixa = new Caixa(
             cadastrarVm.Etiqueta,
             cadastrarVm.Cor,
@@ -87,6 +103,23 @@ public class CaixaController : Controller
     {
         if (!ModelState.IsValid)
             return View(editarVm);
+
+        List<Caixa> caixas = repositorioCaixa.SelecionarTodos();
+
+        bool etiquetaDuplicada = caixas.Any(c =>
+            c.Id != editarVm.Id &&
+            c.Etiqueta.Equals(editarVm.Etiqueta, StringComparison.OrdinalIgnoreCase)
+        );
+
+        if (etiquetaDuplicada)
+        {
+            ModelState.AddModelError(
+                nameof(editarVm.Etiqueta),
+                "Já existe uma caixa com esta etiqueta."
+            );
+
+            return View(editarVm);
+        }
 
         Caixa caixaAtualizada = new Caixa(
             editarVm.Etiqueta,
