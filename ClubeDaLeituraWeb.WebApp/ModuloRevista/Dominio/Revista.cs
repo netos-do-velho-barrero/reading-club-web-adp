@@ -22,26 +22,36 @@ public class Revista : EntidadeBase<Revista>
         Status = StatusRevista.Disponivel;
     }
 
+    public void Emprestar()
+    {
+        Status = StatusRevista.Emprestada;
+    }
+
+    public void Devolver()
+    {
+        Status = StatusRevista.Disponivel;
+    }
+
     public override List<string> Validar()
     {
         List<string> erros = new List<string>();
 
         if (string.IsNullOrWhiteSpace(Titulo))
-            erros.Add("O campo \"Título\" é obrigatório;");
+            erros.Add("O campo \"Título\" é obrigatório.");
 
         else if (Titulo.Length < 2 || Titulo.Length > 100)
-            erros.Add("O campo \"Título\" deve conter entre 2 e 100 caracteres;");
+            erros.Add("O campo \"Título\" deve conter entre 2 e 100 caracteres.");
 
         if (NumeroEdicao < 0)
-            erros.Add("O campo \"Numero da Edição\" deve conter um valor igual ou maior que 0;");
+            erros.Add("O campo \"Número da Edição\" deve conter um valor igual ou maior que 0.");
 
         int anoAtual = DateTime.Now.Year;
 
         if (AnoPublicacao < 1 || AnoPublicacao > anoAtual)
-            erros.Add("O campo \"Ano de Publicação\" deve conter uma data válida;");
+            erros.Add("O campo \"Ano de Publicação\" deve conter uma data válida.");
 
         if (Caixa == null)
-            erros.Add("O campo \"Caixa\" deve conter uma caixa válida;");
+            erros.Add("O campo \"Caixa\" deve conter uma caixa válida.");
 
         return erros;
     }
@@ -52,5 +62,6 @@ public class Revista : EntidadeBase<Revista>
         NumeroEdicao = entidadeAtualizada.NumeroEdicao;
         AnoPublicacao = entidadeAtualizada.AnoPublicacao;
         Caixa = entidadeAtualizada.Caixa;
+        Status = entidadeAtualizada.Status;
     }
 }
