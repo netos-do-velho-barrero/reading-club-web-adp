@@ -1,4 +1,5 @@
 using ClubeDaLeituraWeb.WebApp.ModuloAmigo.Dominio;
+using ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Dominio;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClubeDaLeituraWeb.WebApp.ModuloAmigo.Apresentacao;
@@ -6,10 +7,15 @@ namespace ClubeDaLeituraWeb.WebApp.ModuloAmigo.Apresentacao;
 public class AmigoController : Controller
 {
     private readonly IRepositorioAmigo repositorioAmigo;
+    private readonly IRepositorioEmprestimo repositorioEmprestimo;
 
-    public AmigoController(IRepositorioAmigo repositorioAmigo)
+    public AmigoController(
+        IRepositorioAmigo repositorioAmigo,
+        IRepositorioEmprestimo repositorioEmprestimo
+    )
     {
         this.repositorioAmigo = repositorioAmigo;
+        this.repositorioEmprestimo = repositorioEmprestimo;
     }
 
     [HttpGet]
@@ -63,38 +69,35 @@ public class AmigoController : Controller
             ModelState.AddModelError(
                 nameof(cadastrarVm.Nome),
                 "Já existe um amigo com este nome."
-         );
-
-         return View(cadastrarVm);
-
-        }
-
-         bool telefoneDuplicado = registros.Any(a =>
-          a.Telefone.Equals(cadastrarVm.Telefone, StringComparison.OrdinalIgnoreCase)
-
-        );
-            if (telefoneDuplicado)
-            {
-                ModelState.AddModelError(
-                    nameof(cadastrarVm.Telefone),
-                    "Já existe um amigo com esse telefone."
-                );
-
-                return View(cadastrarVm);
-            }
-
-            Amigo novaAmigo = new Amigo(
-                cadastrarVm.Nome,
-                cadastrarVm.NomeResponsavel,
-                cadastrarVm.Telefone
             );
 
-            repositorioAmigo.Cadastrar(novaAmigo);
+            return View(cadastrarVm);
+        }
 
-            return RedirectToAction(nameof(Listar));
+        bool telefoneDuplicado = registros.Any(a =>
+            a.Telefone.Equals(cadastrarVm.Telefone, StringComparison.OrdinalIgnoreCase)
+        );
 
+        if (telefoneDuplicado)
+        {
+            ModelState.AddModelError(
+                nameof(cadastrarVm.Telefone),
+                "Já existe um amigo com esse telefone."
+            );
+
+            return View(cadastrarVm);
+        }
+
+        Amigo novoAmigo = new Amigo(
+            cadastrarVm.Nome,
+            cadastrarVm.NomeResponsavel,
+            cadastrarVm.Telefone
+        );
+
+        repositorioAmigo.Cadastrar(novoAmigo);
+
+        return RedirectToAction(nameof(Listar));
     }
-
 
     [HttpGet]
     public ActionResult Editar(string id)
@@ -116,7 +119,6 @@ public class AmigoController : Controller
 
     [HttpPost]
     public ActionResult Editar(EditarAmigosViewModel editarVm)
-
     {
         if (!ModelState.IsValid)
             return View(editarVm);
@@ -124,6 +126,7 @@ public class AmigoController : Controller
         List<Amigo> registros = repositorioAmigo.SelecionarTodos();
 
         bool nomeDuplicado = registros.Any(a =>
+            a.Id != editarVm.Id &&
             a.Nome.Equals(editarVm.Nome, StringComparison.OrdinalIgnoreCase)
         );
 
@@ -138,8 +141,8 @@ public class AmigoController : Controller
         }
 
         bool telefoneDuplicado = registros.Any(a =>
-       a.Telefone.Equals(editarVm.Telefone, StringComparison.OrdinalIgnoreCase)
-
+            a.Id != editarVm.Id &&
+            a.Telefone.Equals(editarVm.Telefone, StringComparison.OrdinalIgnoreCase)
         );
 
         if (telefoneDuplicado)
@@ -152,20 +155,18 @@ public class AmigoController : Controller
             return View(editarVm);
         }
 
-        Amigo novaAmigo = new Amigo(
+        Amigo amigoAtualizado = new Amigo(
             editarVm.Nome,
             editarVm.NomeResponsavel,
             editarVm.Telefone
         );
 
-        repositorioAmigo.Editar(editarVm.Id, novaAmigo);
+        repositorioAmigo.Editar(editarVm.Id, amigoAtualizado);
 
         return RedirectToAction(nameof(Listar));
     }
-    
 
-
-        [HttpGet]
+    [HttpGet]
     public ActionResult Excluir(string id)
     {
         Amigo? amigo = repositorioAmigo.SelecionarPorId(id);
@@ -188,10 +189,25 @@ public class AmigoController : Controller
     {
         Amigo? amigo = repositorioAmigo.SelecionarPorId(excluirVm.Id);
 
-        if (amigo != null)
-            repositorioAmigo.Excluir(amigo);
+        if (amigo == null)
+            return RedirectToAction(nameof(Listar));
+
+        bool possuiEmprestimosVinculados = repositorioEmprestimo
+            .SelecionarTodos()
+            .Any(e => e.Amigo.Id == excluirVm.Id);
+
+        if (possuiEmprestimosVinculados)
+        {
+            ModelState.AddModelError(
+                string.Empty,
+                "Este amigo não pode ser excluído porque possui empréstimos vinculados."
+            );
+
+            return View(excluirVm);
+        }
+
+        repositorioAmigo.Excluir(amigo);
 
         return RedirectToAction(nameof(Listar));
     }
 }
-
