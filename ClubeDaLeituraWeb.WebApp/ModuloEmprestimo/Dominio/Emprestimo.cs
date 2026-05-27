@@ -17,9 +17,7 @@ public class Emprestimo : EntidadeBase<Emprestimo>
         {
             int diasDeEmprestimo = Revista.Caixa.DiasDeEmprestimo;
 
-            DateTime conclusao = Abertura.AddDays(diasDeEmprestimo);
-
-            return conclusao;
+            return Abertura.AddDays(diasDeEmprestimo);
         }
     }
 

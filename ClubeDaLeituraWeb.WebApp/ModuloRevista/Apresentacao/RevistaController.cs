@@ -28,13 +28,13 @@ public class RevistaController : Controller
         foreach (Revista revista in revistas)
         {
             ListarRevistasViewModel viewModel = new ListarRevistasViewModel(
-            revista.Id,
-            revista.Titulo,
-            revista.NumeroEdicao,
-            revista.AnoPublicacao,
-            revista.Caixa.Etiqueta,
-            revista.Status.ToString()
-        );
+                revista.Id,
+                revista.Titulo,
+                revista.NumeroEdicao,
+                revista.AnoPublicacao,
+                revista.Caixa.Etiqueta,
+                revista.Status.ToString()
+            );
 
             listarVms.Add(viewModel);
         }
@@ -113,7 +113,11 @@ public class RevistaController : Controller
     [HttpPost]
     public ActionResult Editar(EditarRevistasViewModel editarVm)
     {
+        Revista? revistaOriginal = repositorioRevista.SelecionarPorId(editarVm.Id);
         Caixa? caixaSelecionada = repositorioCaixa.SelecionarPorId(editarVm.CaixaId);
+
+        if (revistaOriginal == null)
+            return RedirectToAction(nameof(Listar));
 
         if (caixaSelecionada == null)
         {
@@ -136,6 +140,8 @@ public class RevistaController : Controller
             editarVm.AnoPublicacao,
             caixaSelecionada!
         );
+
+        revistaAtualizada.Status = revistaOriginal.Status;
 
         repositorioRevista.Editar(editarVm.Id, revistaAtualizada);
 

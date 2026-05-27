@@ -4,6 +4,8 @@ using ClubeDaLeituraWeb.WebApp.ModuloAmigo.Dominio;
 using ClubeDaLeituraWeb.WebApp.ModuloCaixa.Dominio;
 using ClubeDaLeituraWeb.WebApp.ModuloRevista.Dominio;
 using ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Dominio;
+using ClubeDaLeituraWeb.WebApp.ModuloMulta.Dominio;
+using ClubeDaLeituraWeb.WebApp.ModuloReserva.Dominio;
 
 namespace ClubeDaLeituraWeb.WebApp.Compartilhado.Infra.Arquivos;
 
@@ -13,6 +15,9 @@ public sealed class ContextoJson
     public List<Amigo> Amigos { get; set; } = new List<Amigo>();
     public List<Revista> Revistas { get; set; } = new List<Revista>();
     public List<Emprestimo> Emprestimos { get; set; } = new List<Emprestimo>();
+    public List<Multa> Multas { get; set; } = new List<Multa>();
+    public List<Reserva> Reservas { get; set; } = new List<Reserva>();
+
 
     private readonly string caminhoArquivo;
 
@@ -64,5 +69,9 @@ public sealed class ContextoJson
         Amigos = contextoSalvo.Amigos;
 
         Emprestimos = contextoSalvo.Emprestimos;
+
+        Multas = contextoSalvo.Multas;
+
+        Reservas = contextoSalvo.Reservas;
     }
 }

@@ -21,12 +21,6 @@ public class Reserva : EntidadeBase<Reserva>
         Status = StatusReserva.Ativa;
     }
 
-    public void Ativar()
-    {
-        Status = StatusReserva.Ativa;
-        Revista.Reservar();
-    }
-
     public void Cancelar()
     {
         Status = StatusReserva.Cancelada;
@@ -48,7 +42,7 @@ public class Reserva : EntidadeBase<Reserva>
         if (Revista == null)
             erros.Add("O campo \"Revista\" deve ser preenchido.");
 
-        if (Revista != null && Revista.Status != StatusRevista.Disponivel)
+        if (Revista != null && Status == StatusReserva.Ativa && Revista.Status != StatusRevista.Disponivel)
             erros.Add("Só é possível reservar revistas disponíveis.");
 
         return erros;

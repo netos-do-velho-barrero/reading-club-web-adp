@@ -1,0 +1,39 @@
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Cancelamento de Reserva";
+}
+
+@model CancelarReservaViewModel;
+
+<div class="card border-danger-subtle shadow-sm mx-auto p-4" style="max-width: 620px;">
+
+    <h5 class="text-danger fw-semibold mb-3">Confirmar cancelamento</h5>
+
+    <p class="mb-4">
+        Tem certeza que deseja cancelar esta reserva?
+    </p>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold text-primary text-uppercase small">Amigo</label>
+        <input value="@Model.NomeAmigo" type="text" class="form-control" disabled>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold text-primary text-uppercase small">Revista</label>
+        <input value="@Model.TituloRevista" type="text" class="form-control" disabled>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold text-primary text-uppercase small">Data da Reserva</label>
+        <input value="@Model.DataReserva.ToString("dd/MM/yyyy")" type="text" class="form-control" disabled>
+    </div>
+
+    <form asp-action="Cancelar" method="post">
+        <input asp-for="Id" type="hidden">
+
+        <div class="d-flex justify-content-end gap-2 mt-4">
+            <a class="btn btn-outline-primary rounded-pill px-4" asp-action="Listar">Voltar</a>
+            <button class="btn btn-danger rounded-pill px-4" type="submit">Cancelar Reserva</button>
+        </div>
+    </form>
+</div>

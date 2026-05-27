@@ -1,5 +1,7 @@
 using ClubeDaLeituraWeb.WebApp.ModuloAmigo.Dominio;
 using ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Dominio;
+using ClubeDaLeituraWeb.WebApp.ModuloMulta.Dominio;
+using ClubeDaLeituraWeb.WebApp.ModuloReserva.Dominio;
 using ClubeDaLeituraWeb.WebApp.ModuloRevista.Dominio;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,26 +12,34 @@ public class EmprestimoController : Controller
     private readonly IRepositorioEmprestimo repositorioEmprestimo;
     private readonly IRepositorioAmigo repositorioAmigo;
     private readonly IRepositorioRevista repositorioRevista;
+    private readonly IRepositorioMulta repositorioMulta;
+    private readonly IRepositorioReserva repositorioReserva;
 
     public EmprestimoController(
         IRepositorioEmprestimo repositorioEmprestimo,
         IRepositorioAmigo repositorioAmigo,
-        IRepositorioRevista repositorioRevista
+        IRepositorioRevista repositorioRevista,
+        IRepositorioMulta repositorioMulta,
+        IRepositorioReserva repositorioReserva
     )
     {
         this.repositorioEmprestimo = repositorioEmprestimo;
         this.repositorioAmigo = repositorioAmigo;
         this.repositorioRevista = repositorioRevista;
+        this.repositorioMulta = repositorioMulta;
+        this.repositorioReserva = repositorioReserva;
     }
 
     [HttpGet]
     public ActionResult Listar()
     {
+        GerarMultasAutomaticamente();
+
         List<Emprestimo> emprestimos = repositorioEmprestimo.SelecionarTodos();
 
         List<ListarEmprestimosViewModel> listarVms = new List<ListarEmprestimosViewModel>();
 
-        foreach (Emprestimo e in emprestimos) //pderia ter feito p-o .any... Futura refat
+        foreach (Emprestimo e in emprestimos)
         {
             string status = e.EstaAtrasado ? "Atrasado" : e.Status.ToString();
 
@@ -85,11 +95,18 @@ public class EmprestimoController : Controller
             );
         }
 
-        if (revistaSelecionada != null && revistaSelecionada.Status != StatusRevista.Disponivel)
+        bool amigoTemMultaPendente = repositorioMulta
+            .SelecionarTodos()
+            .Any(m =>
+                m.Emprestimo.Amigo.Id == cadastrarVm.AmigoId &&
+                m.Status == StatusMulta.Pendente
+            );
+
+        if (amigoTemMultaPendente)
         {
             ModelState.AddModelError(
-                nameof(cadastrarVm.RevistaId),
-                "A revista selecionada não está disponível."
+                nameof(cadastrarVm.AmigoId),
+                "Este amigo possui multas em aberto e não pode pegar novas revistas."
             );
         }
 
@@ -105,6 +122,29 @@ public class EmprestimoController : Controller
             ModelState.AddModelError(
                 nameof(cadastrarVm.AmigoId),
                 "Este amigo já possui um empréstimo ativo."
+            );
+        }
+
+        if (revistaSelecionada != null && revistaSelecionada.Status != StatusRevista.Disponivel)
+        {
+            ModelState.AddModelError(
+                nameof(cadastrarVm.RevistaId),
+                "A revista selecionada não está disponível."
+            );
+        }
+
+        bool revistaPossuiReservaAtiva = repositorioReserva
+            .SelecionarTodos()
+            .Any(r =>
+                r.Revista.Id == cadastrarVm.RevistaId &&
+                r.Status == StatusReserva.Ativa
+            );
+
+        if (revistaPossuiReservaAtiva)
+        {
+            ModelState.AddModelError(
+                nameof(cadastrarVm.RevistaId),
+                "Esta revista possui uma reserva ativa e não pode ser emprestada diretamente."
             );
         }
 
@@ -156,12 +196,42 @@ public class EmprestimoController : Controller
         if (emprestimo == null)
             return RedirectToAction(nameof(Listar));
 
+        bool estavaAtrasado = emprestimo.EstaAtrasado;
+
+        if (estavaAtrasado)
+            GerarMultaSeNaoExistir(emprestimo);
+
         emprestimo.Concluir();
 
         repositorioEmprestimo.Editar(emprestimo.Id, emprestimo);
         repositorioRevista.Editar(emprestimo.Revista.Id, emprestimo.Revista);
 
         return RedirectToAction(nameof(Listar));
+    }
+
+    private void GerarMultasAutomaticamente()
+    {
+        List<Emprestimo> emprestimosAtrasados = repositorioEmprestimo
+            .SelecionarTodos()
+            .Where(e => e.EstaAtrasado)
+            .ToList();
+
+        foreach (Emprestimo emprestimo in emprestimosAtrasados)
+            GerarMultaSeNaoExistir(emprestimo);
+    }
+
+    private void GerarMultaSeNaoExistir(Emprestimo emprestimo)
+    {
+        bool multaJaExiste = repositorioMulta
+            .SelecionarTodos()
+            .Any(m => m.Emprestimo.Id == emprestimo.Id);
+
+        if (multaJaExiste)
+            return;
+
+        Multa multa = new Multa(emprestimo);
+
+        repositorioMulta.Cadastrar(multa);
     }
 
     private void CarregarAmigos()
