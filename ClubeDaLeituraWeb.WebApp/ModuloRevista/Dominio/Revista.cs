@@ -32,6 +32,16 @@ public class Revista : EntidadeBase<Revista>
         Status = StatusRevista.Disponivel;
     }
 
+    public void Reservar()
+    {
+        Status = StatusRevista.Reservada;
+    }
+
+    public void CancelarReserva()
+    {
+        Status = StatusRevista.Disponivel;
+    }
+
     public override List<string> Validar()
     {
         List<string> erros = new List<string>();
