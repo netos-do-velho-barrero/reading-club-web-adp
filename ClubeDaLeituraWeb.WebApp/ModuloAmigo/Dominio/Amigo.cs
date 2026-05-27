@@ -22,10 +22,16 @@ public sealed class Amigo : EntidadeBase<Amigo>
     {
         List<string> erros = new List<string>();
 
-        if (string.IsNullOrWhiteSpace(Nome) || Nome.Length < 3 || Nome.Length > 100)
+        if (string.IsNullOrWhiteSpace(Nome))
+            erros.Add("O campo \"Nome\" deve ser preenchido.");
+
+        if (Nome.Length < 3 || Nome.Length > 100)
             erros.Add("O campo \"Nome\" deve conter entre 3 e 100 caracteres.");
 
-        if (string.IsNullOrWhiteSpace(NomeResponsavel) || NomeResponsavel.Length < 3 || NomeResponsavel.Length > 100)
+        if (string.IsNullOrWhiteSpace(NomeResponsavel))
+            erros.Add("O campo \"Nome do Responsavel\" deve ser preenchido.");
+
+        if (NomeResponsavel.Length < 3 || NomeResponsavel.Length > 100)
             erros.Add("O campo \"Nome do Responsavel\" deve conter entre 3 e 100 caracteres.");
 
         if (string.IsNullOrWhiteSpace(Telefone) || !Regex.IsMatch(Telefone, @"^\(\d{2}\) \d{4,5}-\d{4}$"))
