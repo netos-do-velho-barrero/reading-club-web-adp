@@ -1,0 +1,62 @@
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Listagem de Empréstimos";
+}
+
+@model List<ListarEmprestimosViewModel>;
+
+<a class="btn btn-outline-primary rounded-pill px-4 mb-3" asp-action="Cadastrar">Registrar Novo Empréstimo</a>
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-primary border-start border-primary border-2 rounded-3" role="alert">
+        Nenhum empréstimo cadastrado.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle bg-white">
+            <thead class="table-primary">
+                <tr>
+                    <th>ID</th>
+                    <th>Amigo</th>
+                    <th>Revista</th>
+                    <th>Data de Empréstimo</th>
+                    <th>Devolução Prevista</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (ListarEmprestimosViewModel e in Model)
+                {
+                    string classeLinha = e.EstaAtrasado ? "table-danger" : string.Empty;
+
+                    <tr class="@classeLinha">
+                        <td>@e.Id</td>
+                        <td>@e.NomeAmigo</td>
+                        <td>@e.TituloRevista</td>
+                        <td>@e.Abertura.ToString("dd/MM/yyyy")</td>
+                        <td>@e.ConclusaoPrevista.ToString("dd/MM/yyyy")</td>
+                        <td>@e.Status</td>
+                        <td>
+                            @if (e.Status != "Concluido")
+                            {
+                                <a class="btn btn-outline-primary btn-sm rounded-pill px-3" asp-action="Devolver"
+                                   asp-route-id="@e.Id">
+                                    Registrar Devolução
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Finalizado</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
