@@ -25,14 +25,14 @@ public class RevistaController : Controller
 
         List<ListarRevistasViewModel> listarVms = new List<ListarRevistasViewModel>();
 
-        foreach (Revista r in revistas)
+        foreach (Revista revista in revistas)
         {
             ListarRevistasViewModel viewModel = new ListarRevistasViewModel(
-                r.Id,
-                r.Titulo,
-                r.NumeroEdicao,
-                r.AnoPublicacao,
-                r.Caixa.Etiqueta
+                revista.Id,
+                revista.Titulo,
+                revista.NumeroEdicao,
+                revista.AnoPublicacao,
+                revista.Caixa.Etiqueta
             );
 
             listarVms.Add(viewModel);
@@ -99,7 +99,7 @@ public class RevistaController : Controller
         CarregarCaixas();
 
         EditarRevistasViewModel editarVm = new EditarRevistasViewModel(
-            id,
+            revista.Id,
             revista.Titulo,
             revista.NumeroEdicao,
             revista.AnoPublicacao,
@@ -150,7 +150,7 @@ public class RevistaController : Controller
             return RedirectToAction(nameof(Listar));
 
         ExcluirRevistasViewModel excluirVm = new ExcluirRevistasViewModel(
-            id,
+            revista.Id,
             revista.Titulo,
             revista.NumeroEdicao,
             revista.AnoPublicacao,

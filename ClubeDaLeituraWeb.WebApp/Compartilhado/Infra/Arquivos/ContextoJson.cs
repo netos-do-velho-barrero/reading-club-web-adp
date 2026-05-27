@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using ClubeDaLeituraWeb.WebApp.ModuloAmigo.Dominio;
 using ClubeDaLeituraWeb.WebApp.ModuloCaixa.Dominio;
+using ClubeDaLeituraWeb.WebApp.ModuloRevista.Dominio;
 
 namespace ClubeDaLeituraWeb.WebApp.Compartilhado.Infra.Arquivos;
 
