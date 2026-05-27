@@ -1,5 +1,5 @@
 using ClubeDaLeituraWeb.WebApp.Compartilhado.Infra.Arquivos;
-using ClubeDaLeituraWeb.WebApp.ModuloAmigo.Dominio;
+using ClubeDaLeituraWeb.WebApp.ModuloRevista.Dominio;
 
 namespace ClubeDaLeituraWeb.WebApp.ModuloRevista.Infra;
 

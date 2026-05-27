@@ -1,5 +1,5 @@
 using ClubeDaLeituraWeb.WebApp.Compartilhado.Infra;
 
-namespace ClubeDaLeituraWeb.WebApp.ModuloAmigo.Dominio;
+namespace ClubeDaLeituraWeb.WebApp.ModuloRevista.Dominio;
 
 public interface IRepositorioRevista : IRepositorio<Revista>;

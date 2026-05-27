@@ -1,14 +1,14 @@
 using ClubeDaLeituraWeb.WebApp.Compartilhado.Dominio;
 using ClubeDaLeituraWeb.WebApp.ModuloCaixa.Dominio;
 
-namespace ClubeDaLeituraWeb.WebApp.ModuloAmigo.Dominio;
+namespace ClubeDaLeituraWeb.WebApp.ModuloRevista.Dominio;
 
 public class Revista : EntidadeBase<Revista>
 {
-    public required string Titulo { get; set; }
+    public string Titulo { get; set; } = string.Empty;
     public int NumeroEdicao { get; set; }
     public int AnoPublicacao { get; set; }
-    public required Caixa Caixa { get; set; }
+    public Caixa Caixa { get; set; } = null!;
 
     public Revista() { }
 
