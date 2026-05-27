@@ -192,18 +192,28 @@ public class AmigoController : Controller
         if (amigo == null)
             return RedirectToAction(nameof(Listar));
 
-        bool possuiEmprestimosVinculados = repositorioEmprestimo
+        bool possuiEmprestimoAberto = repositorioEmprestimo
             .SelecionarTodos()
-            .Any(e => e.Amigo.Id == excluirVm.Id);
+            .Any(e =>
+                e.Amigo.Id == excluirVm.Id &&
+                e.Status == StatusEmprestimo.Aberto
+            );
 
-        if (possuiEmprestimosVinculados)
+        if (possuiEmprestimoAberto)
         {
             ModelState.AddModelError(
                 string.Empty,
-                "Este amigo não pode ser excluído porque possui empréstimos vinculados."
+                "Este amigo não pode ser excluído porque possui empréstimos em aberto."
             );
 
-            return View(excluirVm);
+            ExcluirAmigosViewModel excluirVmAtualizado = new ExcluirAmigosViewModel(
+                amigo.Id,
+                amigo.Nome,
+                amigo.NomeResponsavel,
+                amigo.Telefone
+            );
+
+            return View(excluirVmAtualizado);
         }
 
         repositorioAmigo.Excluir(amigo);

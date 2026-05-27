@@ -1,6 +1,6 @@
 @{
     Layout = "_Layout";
-    ViewBag.Titulo = "Exclusão de Amigos";
+    ViewBag.Titulo = "Exclusão de Amigo";
 }
 
 @model ExcluirAmigosViewModel;
@@ -9,22 +9,24 @@
 
     <h5 class="text-danger fw-semibold mb-3">Confirmar exclusão</h5>
 
+    <div asp-validation-summary="ModelOnly" class="text-danger small fw-semibold mb-3"></div>
+
     <p class="mb-4">
         Tem certeza que deseja excluir este amigo?
     </p>
 
     <div class="mb-3">
-        <label class="form-label fw-semibold text-primary text-uppercase small">Etiqueta</label>
+        <label class="form-label fw-semibold text-primary text-uppercase small">Nome</label>
         <input value="@Model.Nome" type="text" class="form-control" disabled>
     </div>
 
     <div class="mb-3">
-        <label class="form-label fw-semibold text-primary text-uppercase small">Cor</label>
+        <label class="form-label fw-semibold text-primary text-uppercase small">Nome do Responsável</label>
         <input value="@Model.NomeResponsavel" type="text" class="form-control" disabled>
     </div>
 
     <div class="mb-3">
-        <label class="form-label fw-semibold text-primary text-uppercase small">Dias de Empréstimo</label>
+        <label class="form-label fw-semibold text-primary text-uppercase small">Telefone</label>
         <input value="@Model.Telefone" type="text" class="form-control" disabled>
     </div>
 
