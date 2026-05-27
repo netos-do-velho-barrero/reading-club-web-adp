@@ -1,0 +1,58 @@
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Multas em Aberto";
+    @* roubei a listar das outras listas *@
+}
+
+@model List<ListarMultasViewModel>;
+
+<a class="btn btn-outline-primary rounded-pill px-4 mb-3" asp-action="PorAmigo">Visualizar Multas por Amigo</a>
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-primary border-start border-primary border-2 rounded-3" role="alert">
+        Nenhuma multa em aberto.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle bg-white">
+            <thead class="table-primary">
+                <tr>
+                    <th>ID</th>
+                    <th>Amigo</th>
+                    <th>Revista</th>
+                    <th>Data do Empréstimo</th>
+                    <th>Devolução Prevista</th>
+                    <th>Dias de Atraso</th>
+                    <th>Valor</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (ListarMultasViewModel m in Model)
+                {
+                    <tr class="table-danger">
+                        <td>@m.Id</td>
+                        <td>@m.NomeAmigo</td>
+                        <td>@m.TituloRevista</td>
+                        <td>@m.DataEmprestimo.ToString("dd/MM/yyyy")</td>
+                        <td>@m.DataDevolucaoPrevista.ToString("dd/MM/yyyy")</td>
+                        <td>@m.DiasAtraso</td>
+                        <td>@m.Valor.ToString("C")</td>
+                        <td>@m.Status</td>
+                        <td>
+                            <a class="btn btn-outline-primary btn-sm rounded-pill px-3" asp-action="Quitar"
+                               asp-route-id="@m.Id">
+                                Quitar
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
