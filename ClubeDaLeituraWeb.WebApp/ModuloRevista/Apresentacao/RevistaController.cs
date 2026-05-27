@@ -28,12 +28,13 @@ public class RevistaController : Controller
         foreach (Revista revista in revistas)
         {
             ListarRevistasViewModel viewModel = new ListarRevistasViewModel(
-                revista.Id,
-                revista.Titulo,
-                revista.NumeroEdicao,
-                revista.AnoPublicacao,
-                revista.Caixa.Etiqueta
-            );
+            revista.Id,
+            revista.Titulo,
+            revista.NumeroEdicao,
+            revista.AnoPublicacao,
+            revista.Caixa.Etiqueta,
+            revista.Status.ToString()
+        );
 
             listarVms.Add(viewModel);
         }
