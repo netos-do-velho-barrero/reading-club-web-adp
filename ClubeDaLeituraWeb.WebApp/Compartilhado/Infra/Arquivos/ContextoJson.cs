@@ -8,8 +8,8 @@ namespace ClubeDaLeituraWeb.WebApp.Compartilhado.Infra.Arquivos;
 public sealed class ContextoJson
 {
     public List<Caixa> Caixas { get; set; } = new List<Caixa>();
-
     public List<Amigo> Amigos { get; set; } = new List<Amigo>();
+    public List<Revista> Revistas { get; internal set; }
 
     private readonly string caminhoArquivo;
 
@@ -55,6 +55,8 @@ public sealed class ContextoJson
             return;
 
         Caixas = contextoSalvo.Caixas;
+
+        Revistas = contextoSalvo.Revistas;
 
         Amigos = contextoSalvo.Amigos;
     }
