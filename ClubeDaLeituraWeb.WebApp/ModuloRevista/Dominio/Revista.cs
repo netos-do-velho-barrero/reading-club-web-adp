@@ -9,6 +9,7 @@ public class Revista : EntidadeBase<Revista>
     public int NumeroEdicao { get; set; }
     public int AnoPublicacao { get; set; }
     public Caixa Caixa { get; set; } = null!;
+    public StatusRevista Status { get; set; } = StatusRevista.Disponivel;
 
     public Revista() { }
 
@@ -18,6 +19,7 @@ public class Revista : EntidadeBase<Revista>
         NumeroEdicao = numeroEdicao;
         AnoPublicacao = anoPublicacao;
         Caixa = caixa;
+        Status = StatusRevista.Disponivel;
     }
 
     public override List<string> Validar()
