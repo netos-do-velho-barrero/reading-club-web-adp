@@ -1,112 +1,82 @@
-# Clube da Leitura
+#   📚 CLUBE DA LEITURA    |   Sistema de Gestão de Livros 🚀
+> **Controle inteligente de revistas, caixas e empréstimos para colecionadores.**
 
-Gustavo tem uma coleção grande de revistas em quadrinhos. Por isso, resolveu
-emprestar para os amigos. Assim foi criado o Clube da Leitura.
+   ![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
+![.NET](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
+![Razor CSHTML](https://img.shields.io/badge/Razor_CSHTML-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
+![Arquitetura MVC](https://img.shields.io/badge/Architecture-MVC-blue?style=for-the-badge)
+![Desenvolvimento Web](https://img.shields.io/badge/Dev-Web-orange?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Concluído-brightgreen?style=for-the-badge)
 
-Mas para não perder nenhuma revista, seu pai contratou os alunos da Academia do
-Programador para fazer uma aplicação que cadastra as revistas e controla os
-empréstimos.
+---
 
-## 1. Módulo de Caixas
+![alt text](image.png)
 
-**Requisitos Funcionais:**
+# 📌 Sobre o Projeto
 
-- O sistema deve permitir cadastrar novas caixas
-- O sistema deve permitir editar caixas existentes
-- O sistema deve permitir excluir caixas
-- O sistema deve permitir visualizar todas as caixas
+O **Clube da Leitura** foi desenvolvido para  gerenciar o empréstimo de sua coleção de revistas em quadrinhos para amigos de forma organizada e eficiente.
 
-**Regras de Negócio:**
+---
+### 📦 Módulo de Caixas
+> **Ações Suportadas:** `Cadastrar` | `Editar` | `Excluir` | `Visualizar`
 
-- Campos obrigatórios:
-- Etiqueta (texto único, máximo 50 caracteres)
-- Cor (seleção de paleta ou hexadecimal)
-- Dias de empréstimo (número, padrão 7)
-- Não pode haver etiquetas duplicadas
-- Não permitir excluir uma caixa caso tenha revistas vinculadas
-- Cada caixa define o prazo máximo para empréstimo de suas revistas
+| Parâmetro | Regra de Negócio |
+| :--- | :--- |
+| **Etiqueta** | Obrigatória, única e com limite máximo de 50 caracteres. |
+| **Configuração** | Definição de Cor Hex e tempo de empréstimo (padrão de 7 dias). |
+| **Segurança** | Bloqueio automático de exclusão se houver HQs vinculadas. |
 
-## 2. Módulo de Revistas
+---
 
-**Requisitos Funcionais:**
+### 📖 Módulo de Revistas
+> **Ações Suportadas:** `Cadastrar` | `Editar` | `Excluir` | `Visualizar`
 
-- O sistema deve permitir cadastrar novas revistas
-- O sistema deve permitir editar revistas existentes
-- O sistema deve permitir excluir revistas
-- O sistema deve permitir visualizar todas as revistas
+| Parâmetro | Regra de Negócio |
+| :--- | :--- |
+| **Validação** | Combinação de Título (2-100 caracteres) + Edição deve ser única. |
+| **Vínculo** | Associação obrigatória a uma caixa organizadora cadastrada. |
+| **Status** | Controle dinâmico: `Disponível` \| `Emprestada` \| `Reservada`. |
 
-**Regras de Negócio:**
+---
 
-- Campos obrigatórios:
-    - Título (2-100 caracteres)
-    - Número da edição (número positivo)
-    - Ano de publicação (data válida)
-    - Caixa (seleção obrigatória)
-- Não pode haver revistas com mesmo título e edição
+### 👥 Módulo de Amigos
+> **Ações Suportadas:** `Inserir` | `Editar` | `Excluir` | `Visualizar`
 
-## 3. Módulo de Amigos
+| Parâmetro | Regra de Negócio |
+| :--- | :--- |
+| **Identificação** | Nome do amigo e do responsável (3-100 caracteres). |
+| **Contato** | Telefone validado estritamente com 10 ou 11 dígitos. |
+| **Restrição** | Impede nomes idênticos e bloqueia exclusão com empréstimos ativos. |
 
-**Requisitos Funcionais**
+---
 
-- O sistema deve permitir a inserção de novos amigos
-- O sistema deve permitir a edição de amigos já cadastrados
-- O sistema deve permitir excluir amigos já cadastrados
-- O sistema deve permitir visualizar amigos cadastrados
+### 🤝 Módulo de Empréstimos
+> **Ações Suportadas:** `Registrar Empréstimo` | `Registrar Devolução` | `Monitorar Atrasos`
 
-**Regras de Negócio:**
+| Parâmetro | Regra de Negócio |
+| :--- | :--- |
+| **Limite** | Permitido estritamente apenas 1 empréstimo ativo por amigo. |
+| **Prazo** | Tempo de devolução calculado automaticamente baseado na caixa. |
+| **Alertas** | Sistema de notificação e destaque visual para status `Atrasado`. |
 
-- Campos obrigatórios:
-    - Nome (mínimo 3 caracteres, máximo 100)
-    - Nome do responsável (mínimo 3 caracteres, máximo 100)
-    - Telefone (formato validado: 10-11 dígitos)
-    - Não pode haver amigos com o mesmo nome e telefone
 
-## 4. Módulo de Empréstimos
 
-**Requisitos Funcionais:**
+# 🧠 Conceitos Aplicados
 
-- O sistema deve permitir registrar novos empréstimos
-- O sistema deve permitir registrar devoluções
-- O sistema deve permitir visualizar empréstimos abertos e fechados
+| Conceito | Aplicação |
+|---|---|
+| 🏗️ POO | Modelagem das entidades físicas do clube |
+| 📐 Camadas | Separação estrita de responsabilidades |
+| ⚙️ Regras | Validação robusta contra duplicidade e perdas |
 
-**Refatorações:**
+## 👨‍💻 Autores
 
-**Revistas:**
+<div align="center">
 
-- O sistema deve armazenar e mostrar o status atual das revistas cadastradas (disponível/emprestada/reservada)
+Desenvolvido por **Pedro Henrique** e **Marco Oliveira**.
 
-**Amigos:**
+[![GitHub](https://img.shields.io/badge/GitHub-pedrohenriquedsdev-181717?style=for-the-badge&logo=github)](https://github.com/pedrohenriquedsdev)
 
-- O sistema deve permitir visualizar os empréstimos de amigos específicos
-- Não permitir excluir um amigo caso tenha empréstimos vinculados
-  Regras de Negócio:
-- Campos obrigatórios:
-    - Amigo
-    - Revista (disponível no momento)
-    - Data empréstimo (automática)
-    - Data devolução (calculada conforme caixa)
-- Status possíveis: Aberto / Concluído / Atrasado
-- Cada amigo só pode ter um empréstimo ativo por vez
-- Empréstimos atrasados devem ser destacados visualmente
-- A data de devolução é calculada automaticamente (data empréstimo + dias da
-  caixa)
+[![GitHub](https://img.shields.io/badge/GitHub-Marco--Oliver-181717?style=for-the-badge&logo=github)](https://github.com/Marco-Oliver)
 
-## Como utilizar
-
-1. Clone o repositório ou baixe o código fonte.
-2. Abra o terminal ou o prompt de comando e navegue até a pasta raiz
-3. Utilize o comando abaixo para restaurar as dependências do projeto.
-
-    ```bash
-    dotnet restore
-    ```
-
-4. Para executar o projeto compilando em tempo real
-
-    ```bash
-    dotnet run --project ClubeDaLeituraWeb.WebApp
-    ```
-
-## Requisitos
-
-- .NET 10.0 SDK
+</div>
