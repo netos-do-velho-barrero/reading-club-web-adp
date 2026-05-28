@@ -10,7 +10,8 @@
 
 ---
 
-![alt text](image.png)
+![](site.gif)
+
 
 # 📌 Sobre o Projeto
 
