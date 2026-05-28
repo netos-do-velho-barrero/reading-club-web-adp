@@ -3,64 +3,751 @@
     ViewBag.Titulo = "Página Inicial";
 }
 
-<div class="row align-items-start">
-    <div class="col-lg-7">
-        <h1 class="display-5 fw-semibold mb-3">Clube da Leitura</h1>
+<section class="hero-grid">
+    <div class="hero-panel surface">
+        <div class="hero-content">
+            <div class="hero-kicker">
+                <i class="bi bi-bookmark-star-fill"></i>
+                Biblioteca comunitária organizada
+            </div>
 
-        <p class="lead text-secondary mb-4">
-            Organize caixas, revistas, empréstimos e amigos em uma aplicação simples para acompanhar a rotina do clube.
-        </p>
+            <h1>
+                Um clube da leitura com cara de acervo vivo.
+            </h1>
 
-        <div class="d-flex flex-wrap gap-2">
-            <a class="btn btn-primary rounded-pill px-4" asp-controller="Caixa" asp-action="Listar">
-                Acessar Caixas
-            </a>
+            <p>
+                Gerencie revistas, amigos, caixas, reservas, empréstimos e multas com uma experiência visual mais limpa,
+                editorial e agradável de usar.
+            </p>
 
-            <a class="btn btn-primary rounded-pill px-4" asp-controller="Amigo" asp-action="Listar">
-                Acessar Amigos
-            </a>
+            <div class="hero-actions">
+                <a class="btn btn-primary btn-lg px-4" asp-controller="Emprestimo" asp-action="Listar">
+                    <i class="bi bi-arrow-left-right me-2"></i>
+                    Gerenciar Empréstimos
+                </a>
 
-            <a class="btn btn-primary rounded-pill px-4" asp-controller="Revista" asp-action="Listar">
-                Acessar Revistas
-            </a>
+                <a class="btn btn-outline-primary btn-lg px-4" asp-controller="Revista" asp-action="Listar">
+                    <i class="bi bi-journal-richtext me-2"></i>
+                    Ver Acervo
+                </a>
+            </div>
 
-            <a class="btn btn-primary rounded-pill px-4" asp-controller="Emprestimo" asp-action="Listar">
-                Acessar Empréstimos
-            </a>
+            <div class="hero-metrics">
+                <div>
+                    <span>6</span>
+                    <small>Módulos ativos</small>
+                </div>
+
+                <div>
+                    <span>R$ 2</span>
+                    <small>Por dia de atraso</small>
+                </div>
+
+                <div>
+                    <span>Auto</span>
+                    <small>Reservas e multas</small>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="col-lg-5">
-        <div class="card border-primary-subtle shadow-sm">
-            <div class="card-body p-4">
-                <h3 class="h5 text-primary mb-3">Módulos disponíveis</h3>
+        <div class="hero-art">
+            <div class="book-stack">
+                <div class="book book-one">
+                    <span>Revistas</span>
+                </div>
 
-                <div class="list-group">
-                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-                       asp-controller="Caixa" asp-action="Listar">
-                        Controle de Caixas
-                        <span class="badge text-bg-primary rounded-pill">Abrir</span>
-                    </a>
+                <div class="book book-two">
+                    <span>Reservas</span>
+                </div>
 
-                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-                       asp-controller="Amigo" asp-action="Listar">
-                        Controle de Amigos
-                        <span class="badge text-bg-primary rounded-pill">Abrir</span>
-                    </a>
+                <div class="book book-three">
+                    <span>Empréstimos</span>
+                </div>
 
-                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-                       asp-controller="Revista" asp-action="Listar">
-                        Controle de Revistas
-                        <span class="badge text-bg-primary rounded-pill">Abrir</span>
-                    </a>
+                <div class="book book-four">
+                    <span>Multas</span>
+                </div>
+            </div>
 
-                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-                       asp-controller="Emprestimo" asp-action="Listar">
-                        Controle de Empréstimos
-                        <span class="badge text-bg-primary rounded-pill">Abrir</span>
-                    </a>
+            <div class="reading-card">
+                <div class="reading-card-icon">
+                    <i class="bi bi-cup-hot"></i>
+                </div>
+
+                <div>
+                    <strong>Ambiente de clube</strong>
+                    <span>Organização simples, visual acolhedor.</span>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <aside class="quick-panel surface">
+        <div class="panel-header">
+            <div>
+                <span class="eyebrow-mini">Atalhos</span>
+                <h3>Módulos disponíveis</h3>
+            </div>
+
+            <span class="module-counter">6</span>
+        </div>
+
+        <div class="module-list">
+            <a class="module-item" asp-controller="Caixa" asp-action="Listar">
+                <span class="module-icon">
+                    <i class="bi bi-archive"></i>
+                </span>
+
+                <span>
+                    <strong>Caixas</strong>
+                    <small>Organização física do acervo</small>
+                </span>
+
+                <i class="bi bi-arrow-up-right module-arrow"></i>
+            </a>
+
+            <a class="module-item" asp-controller="Amigo" asp-action="Listar">
+                <span class="module-icon">
+                    <i class="bi bi-people"></i>
+                </span>
+
+                <span>
+                    <strong>Amigos</strong>
+                    <small>Leitores cadastrados no clube</small>
+                </span>
+
+                <i class="bi bi-arrow-up-right module-arrow"></i>
+            </a>
+
+            <a class="module-item" asp-controller="Revista" asp-action="Listar">
+                <span class="module-icon">
+                    <i class="bi bi-journal-richtext"></i>
+                </span>
+
+                <span>
+                    <strong>Revistas</strong>
+                    <small>Status: disponível, reservada ou emprestada</small>
+                </span>
+
+                <i class="bi bi-arrow-up-right module-arrow"></i>
+            </a>
+
+            <a class="module-item" asp-controller="Emprestimo" asp-action="Listar">
+                <span class="module-icon">
+                    <i class="bi bi-arrow-left-right"></i>
+                </span>
+
+                <span>
+                    <strong>Empréstimos</strong>
+                    <small>Controle de retiradas e devoluções</small>
+                </span>
+
+                <i class="bi bi-arrow-up-right module-arrow"></i>
+            </a>
+
+            <a class="module-item" asp-controller="Reserva" asp-action="Listar">
+                <span class="module-icon">
+                    <i class="bi bi-bookmark-check"></i>
+                </span>
+
+                <span>
+                    <strong>Reservas</strong>
+                    <small>Fila controlada antes do empréstimo</small>
+                </span>
+
+                <i class="bi bi-arrow-up-right module-arrow"></i>
+            </a>
+
+            <a class="module-item" asp-controller="Multa" asp-action="Listar">
+                <span class="module-icon">
+                    <i class="bi bi-receipt"></i>
+                </span>
+
+                <span>
+                    <strong>Multas</strong>
+                    <small>R$ 2,00 por dia de atraso</small>
+                </span>
+
+                <i class="bi bi-arrow-up-right module-arrow"></i>
+            </a>
+        </div>
+    </aside>
+</section>
+
+<section class="insight-grid mt-4">
+    <article class="insight-card surface-flat">
+        <div class="insight-icon green">
+            <i class="bi bi-shield-check"></i>
+        </div>
+
+        <div>
+            <h4>Regras protegidas</h4>
+            <p>O sistema bloqueia empréstimos para amigos com multas pendentes ou empréstimos ativos.</p>
+        </div>
+    </article>
+
+    <article class="insight-card surface-flat">
+        <div class="insight-icon wine">
+            <i class="bi bi-alarm"></i>
+        </div>
+
+        <div>
+            <h4>Atrasos visuais</h4>
+            <p>Empréstimos atrasados são destacados para facilitar a rotina de acompanhamento.</p>
+        </div>
+    </article>
+
+    <article class="insight-card surface-flat">
+        <div class="insight-icon gold">
+            <i class="bi bi-stars"></i>
+        </div>
+
+        <div>
+            <h4>Fluxo completo</h4>
+            <p>Uma reserva pode virar empréstimo, e uma devolução atrasada gera multa automaticamente.</p>
+        </div>
+    </article>
+</section>
+
+<section class="timeline-section surface mt-4">
+    <div class="section-heading">
+        <span class="eyebrow-mini">Rotina sugerida</span>
+        <h3>Fluxo do clube</h3>
+    </div>
+
+    <div class="timeline">
+        <div class="timeline-step">
+            <span>01</span>
+            <strong>Cadastrar acervo</strong>
+            <small>Registre caixas e revistas disponíveis.</small>
+        </div>
+
+        <div class="timeline-line"></div>
+
+        <div class="timeline-step">
+            <span>02</span>
+            <strong>Registrar leitores</strong>
+            <small>Cadastre amigos e responsáveis.</small>
+        </div>
+
+        <div class="timeline-line"></div>
+
+        <div class="timeline-step">
+            <span>03</span>
+            <strong>Reservar ou emprestar</strong>
+            <small>Controle a disponibilidade das revistas.</small>
+        </div>
+
+        <div class="timeline-line"></div>
+
+        <div class="timeline-step">
+            <span>04</span>
+            <strong>Finalizar devolução</strong>
+            <small>Quite multas quando houver atraso.</small>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.55fr) minmax(360px, .75fr);
+        gap: 1.25rem;
+        align-items: stretch;
+    }
+
+    .hero-panel {
+        position: relative;
+        min-height: 560px;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 370px;
+        gap: 1rem;
+        padding: clamp(1.5rem, 4vw, 3rem);
+    }
+
+    .hero-panel::before {
+        content: "";
+        position: absolute;
+        inset: auto -16% -38% 34%;
+        height: 440px;
+        background:
+            radial-gradient(circle, rgba(198, 156, 74, .34), transparent 62%),
+            radial-gradient(circle at 35% 35%, rgba(122, 39, 53, .18), transparent 42%);
+        transform: rotate(-8deg);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 720px;
+        align-self: center;
+    }
+
+    .hero-kicker,
+    .eyebrow-mini {
+        display: inline-flex;
+        align-items: center;
+        gap: .45rem;
+        font-size: .78rem;
+        font-weight: 800;
+        letter-spacing: .075em;
+        text-transform: uppercase;
+        color: #2e6249;
+    }
+
+    .hero-kicker {
+        padding: .55rem .85rem;
+        border-radius: 999px;
+        background: rgba(46, 98, 73, .10);
+        border: 1px solid rgba(46, 98, 73, .16);
+        margin-bottom: 1.3rem;
+    }
+
+    .hero-content h1 {
+        max-width: 680px;
+        margin: 0;
+        color: #193326;
+        font-size: clamp(2.5rem, 6vw, 5.4rem);
+        line-height: .94;
+        letter-spacing: -.075em;
+        font-weight: 900;
+    }
+
+    .hero-content p {
+        max-width: 620px;
+        margin: 1.35rem 0 0;
+        color: #7a6f61;
+        font-size: 1.15rem;
+        line-height: 1.75;
+    }
+
+    .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .75rem;
+        margin-top: 2rem;
+    }
+
+    .hero-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: .8rem;
+        margin-top: 2.2rem;
+        max-width: 640px;
+    }
+
+    .hero-metrics div {
+        padding: 1rem;
+        border-radius: 20px;
+        background: rgba(255, 250, 240, .62);
+        border: 1px solid rgba(37, 50, 41, .10);
+    }
+
+    .hero-metrics span {
+        display: block;
+        color: #193326;
+        font-weight: 900;
+        font-size: 1.35rem;
+        letter-spacing: -.04em;
+    }
+
+    .hero-metrics small {
+        color: #7a6f61;
+        font-weight: 600;
+    }
+
+    .hero-art {
+        position: relative;
+        z-index: 2;
+        align-self: center;
+        min-height: 420px;
+    }
+
+    .book-stack {
+        position: absolute;
+        right: 10px;
+        top: 16px;
+        width: 300px;
+        height: 380px;
+        transform: rotate(-4deg);
+    }
+
+    .book {
+        position: absolute;
+        right: 0;
+        width: 250px;
+        height: 72px;
+        border-radius: 16px 10px 10px 16px;
+        box-shadow: 0 18px 30px rgba(25, 51, 38, .18);
+        display: flex;
+        align-items: center;
+        padding-left: 1.4rem;
+        color: #fffaf0;
+        font-weight: 800;
+        letter-spacing: -.02em;
+        border: 1px solid rgba(255, 255, 255, .22);
+    }
+
+    .book::after {
+        content: "";
+        position: absolute;
+        right: 18px;
+        top: 10px;
+        bottom: 10px;
+        width: 8px;
+        border-radius: 99px;
+        background: rgba(255, 250, 240, .34);
+    }
+
+    .book-one {
+        top: 32px;
+        background: linear-gradient(135deg, #193326, #2e6249);
+    }
+
+    .book-two {
+        top: 112px;
+        right: 28px;
+        background: linear-gradient(135deg, #7a2735, #9c4050);
+    }
+
+    .book-three {
+        top: 192px;
+        right: 8px;
+        background: linear-gradient(135deg, #9f7430, #c69c4a);
+    }
+
+    .book-four {
+        top: 272px;
+        right: 42px;
+        background: linear-gradient(135deg, #214734, #193326);
+    }
+
+    .reading-card {
+        position: absolute;
+        right: 70px;
+        bottom: 10px;
+        width: 280px;
+        padding: 1rem;
+        border-radius: 24px;
+        background: rgba(255, 250, 240, .88);
+        border: 1px solid rgba(37, 50, 41, .12);
+        box-shadow: 0 22px 60px rgba(25, 51, 38, .18);
+        display: flex;
+        align-items: center;
+        gap: .85rem;
+        animation: floatCard 4s ease-in-out infinite;
+    }
+
+    .reading-card-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 16px;
+        background: rgba(198, 156, 74, .22);
+        color: #9f7430;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 1.25rem;
+    }
+
+    .reading-card strong {
+        display: block;
+        color: #193326;
+        line-height: 1.1;
+    }
+
+    .reading-card span {
+        display: block;
+        color: #7a6f61;
+        font-size: .88rem;
+        margin-top: .25rem;
+    }
+
+    .quick-panel {
+        padding: 1.4rem;
+    }
+
+    .panel-header,
+    .section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 1rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .panel-header h3,
+    .section-heading h3 {
+        margin: .25rem 0 0;
+        color: #193326;
+        font-weight: 900;
+        letter-spacing: -.045em;
+    }
+
+    .module-counter {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #193326;
+        color: #fffaf0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+    }
+
+    .module-list {
+        display: grid;
+        gap: .7rem;
+    }
+
+    .module-item {
+        display: grid;
+        grid-template-columns: 46px minmax(0, 1fr) 28px;
+        gap: .85rem;
+        align-items: center;
+        padding: .95rem;
+        border-radius: 20px;
+        text-decoration: none;
+        color: #253229;
+        background: rgba(255, 250, 240, .60);
+        border: 1px solid rgba(37, 50, 41, .10);
+        transition: .22s ease;
+    }
+
+    .module-item:hover {
+        color: #253229;
+        background: rgba(242, 223, 181, .32);
+        transform: translateY(-3px);
+        box-shadow: 0 16px 34px rgba(25, 51, 38, .10);
+    }
+
+    .module-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 16px;
+        background: rgba(46, 98, 73, .10);
+        color: #2e6249;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+    }
+
+    .module-item strong {
+        display: block;
+        color: #193326;
+        line-height: 1.15;
+    }
+
+    .module-item small {
+        display: block;
+        margin-top: .25rem;
+        color: #7a6f61;
+        line-height: 1.25;
+    }
+
+    .module-arrow {
+        color: #c69c4a;
+        transition: .22s ease;
+    }
+
+    .module-item:hover .module-arrow {
+        transform: translate(3px, -3px);
+    }
+
+    .insight-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .insight-card {
+        padding: 1.25rem;
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+        transition: .22s ease;
+    }
+
+    .insight-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 45px rgba(25, 51, 38, .10);
+    }
+
+    .insight-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 18px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 1.35rem;
+    }
+
+    .insight-icon.green {
+        background: rgba(46, 98, 73, .12);
+        color: #2e6249;
+    }
+
+    .insight-icon.wine {
+        background: rgba(122, 39, 53, .12);
+        color: #7a2735;
+    }
+
+    .insight-icon.gold {
+        background: rgba(198, 156, 74, .20);
+        color: #9f7430;
+    }
+
+    .insight-card h4 {
+        margin: 0 0 .35rem;
+        color: #193326;
+        font-weight: 900;
+        letter-spacing: -.035em;
+        font-size: 1.05rem;
+    }
+
+    .insight-card p {
+        margin: 0;
+        color: #7a6f61;
+        line-height: 1.55;
+        font-size: .95rem;
+    }
+
+    .timeline-section {
+        padding: 1.5rem;
+    }
+
+    .timeline {
+        display: grid;
+        grid-template-columns: 1fr 40px 1fr 40px 1fr 40px 1fr;
+        align-items: center;
+        gap: .5rem;
+    }
+
+    .timeline-step {
+        min-height: 140px;
+        padding: 1.1rem;
+        border-radius: 22px;
+        background: rgba(255, 250, 240, .62);
+        border: 1px solid rgba(37, 50, 41, .10);
+    }
+
+    .timeline-step span {
+        width: 36px;
+        height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #193326;
+        color: #fffaf0;
+        font-weight: 900;
+        font-size: .82rem;
+        margin-bottom: .85rem;
+    }
+
+    .timeline-step strong {
+        display: block;
+        color: #193326;
+        font-weight: 900;
+        letter-spacing: -.03em;
+        margin-bottom: .35rem;
+    }
+
+    .timeline-step small {
+        color: #7a6f61;
+        line-height: 1.45;
+    }
+
+    .timeline-line {
+        height: 2px;
+        background: linear-gradient(90deg, rgba(46, 98, 73, .15), rgba(198, 156, 74, .78), rgba(46, 98, 73, .15));
+    }
+
+    @@keyframes floatCard {
+
+        0%,
+        100% {
+            transform: translateY(0) rotate(2deg);
+        }
+
+        50% {
+            transform: translateY(-10px) rotate(1deg);
+        }
+    }
+
+    @@media (max-width: 1199px) {
+        .hero-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-panel {
+            grid-template-columns: 1fr;
+            min-height: auto;
+        }
+
+        .hero-art {
+            min-height: 360px;
+        }
+
+        .book-stack {
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%) rotate(-4deg);
+        }
+
+        .reading-card {
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
+        }
+    }
+
+    @@media (max-width: 991px) {
+        .insight-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .timeline {
+            grid-template-columns: 1fr;
+        }
+
+        .timeline-line {
+            width: 2px;
+            height: 28px;
+            justify-self: center;
+            background: linear-gradient(180deg, rgba(46, 98, 73, .15), rgba(198, 156, 74, .78), rgba(46, 98, 73, .15));
+        }
+    }
+
+    @@media (max-width: 575px) {
+        .hero-panel {
+            padding: 1.25rem;
+        }
+
+        .hero-content h1 {
+            font-size: 2.75rem;
+        }
+
+        .hero-metrics {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-art {
+            display: none;
+        }
+
+        .module-item {
+            grid-template-columns: 42px minmax(0, 1fr);
+        }
+
+        .module-arrow {
+            display: none;
+        }
+    }
+</style>
